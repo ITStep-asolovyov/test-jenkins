@@ -26,11 +26,14 @@ public class PositiveTests {
         Configuration.remote = "http://localhost:4444/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
+        Configuration.timeout = 10000;
+        Configuration.baseUrl = "https://www.google.com";
     }
 
     @Test
-    void testGoogle() throws Exception {
-        open("google.com");
+    void testGoogle() {
+        open("/");
+        // дальнейшие шаги теста
     }
 
 }
