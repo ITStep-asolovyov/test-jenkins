@@ -23,17 +23,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PositiveTests {
     @BeforeAll
     static void configure() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        Configuration.browserCapabilities = options;
         Configuration.remote = "http://localhost:4444/wd/hub";
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
-        Configuration.baseUrl = "https://www.google.com";
     }
 
     @Test
     void testGoogle() {
-        open("/");
-        // дальнейшие шаги теста
+        open("https://www.google.com");
     }
 
 }
