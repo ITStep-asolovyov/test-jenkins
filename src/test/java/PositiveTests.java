@@ -23,29 +23,24 @@ public class PositiveTests {
     @Test
     public void test1() throws MalformedURLException {
         ChromeOptions options = new ChromeOptions();
-
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            /* How to add test badge */
-            put("name", "Test badge...");
-
-            /* How to set session timeout */
+            put("name", "My Test");
             put("sessionTimeout", "15m");
-
-            /* How to set timezone */
+            put("enableVNC", true);
+            put("enableVideo", true);
             put("env", new ArrayList<String>() {{
                 add("TZ=UTC");
             }});
-
-            /* How to add "trash" button */
             put("labels", new HashMap<String, Object>() {{
                 put("manual", "true");
             }});
-
-            /* How to enable video recording */
-            put("enableVideo", true);
         }});
-        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-        System.out.println("Test completed successfully!");
+
+        WebDriver driver = new RemoteWebDriver(
+                URI.create("http://localhost:4444/wd/hub").toURL(),
+                options
+        );
+
+        driver.get("https://www.google.com");
         driver.quit();
-    }
-}
+}}
