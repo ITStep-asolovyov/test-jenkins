@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
@@ -16,36 +17,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.open;
+import static java.sql.DriverManager.getDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PositiveTests {
-    private WebDriver getDriver() throws Exception {
-        ChromeOptions options = new ChromeOptions()
-                .addArguments("--no-sandbox")
-                .addArguments("--disable-infobars")
-                .addArguments("--disable-popup-blocking")
-                .addArguments("--disable-notifications")
-                .addArguments("--lang=en-US");
-
-        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            put("enableVNC", true);
-            put("enableVideo", true);
-            put("name", "Test name");
-            put("sessionTimeout", "15m");
-        }});
-
-        return new RemoteWebDriver(
-                URI.create("http://localhost:4444/wd/hub").toURL(),
-                options
-        );
+    @BeforeAll
+    static void configure() {
+        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
     }
 
     @Test
     void testGoogle() throws Exception {
-        WebDriver driver = getDriver();
-        driver.get("https://www.google.com");
-        Thread.sleep(5000);
-        driver.quit();
+        open("google.com");
     }
 
 }
