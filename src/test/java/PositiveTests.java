@@ -19,28 +19,33 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PositiveTests {
+    private WebDriver getDriver() throws Exception {
+        ChromeOptions options = new ChromeOptions()
+                .addArguments("--no-sandbox")
+                .addArguments("--disable-infobars")
+                .addArguments("--disable-popup-blocking")
+                .addArguments("--disable-notifications")
+                .addArguments("--lang=en-US");
 
-    @Test
-    public void test1() throws MalformedURLException {
-        ChromeOptions options = new ChromeOptions();
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            put("name", "My Test");
-            put("sessionTimeout", "15m");
             put("enableVNC", true);
             put("enableVideo", true);
-            put("env", new ArrayList<String>() {{
-                add("TZ=UTC");
-            }});
-            put("labels", new HashMap<String, Object>() {{
-                put("manual", "true");
-            }});
+            put("name", "Test name");
+            put("sessionTimeout", "15m");
         }});
 
-        WebDriver driver = new RemoteWebDriver(
+        return new RemoteWebDriver(
                 URI.create("http://localhost:4444/wd/hub").toURL(),
                 options
         );
+    }
 
+    @Test
+    void testGoogle() throws Exception {
+        WebDriver driver = getDriver();
         driver.get("https://www.google.com");
+        Thread.sleep(5000);
         driver.quit();
-}}
+    }
+
+}
