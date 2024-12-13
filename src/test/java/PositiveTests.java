@@ -25,11 +25,10 @@ public class PositiveTests {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("browserVersion", "latest");
+        capabilities.setCapability("browserVersion", "119.0");
         capabilities.setCapability("selenoid:options", new HashMap<String, Object>() {{
             put("enableVNC", true);
             put("enableVideo", false);
-            put("sessionTimeout", "5m");
         }});
 
         System.out.println("Connecting to Selenoid...");
