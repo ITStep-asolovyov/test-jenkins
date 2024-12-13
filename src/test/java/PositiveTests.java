@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,16 +21,22 @@ public class PositiveTests {
 
     @Test
     public void test1() throws MalformedURLException {
+        System.out.println("Starting test configuration...");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("latest");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", false);
 
-        WebDriver driver = new RemoteWebDriver(
-                URI.create("http://localhost:4444/wd/hub").toURL(),
-                capabilities
-        );
-open("www.google.com");    }
+        System.out.println("Connecting to Selenoid...");
+        URL selenoidUrl = URI.create("http://localhost:4444/wd/hub").toURL();
+        WebDriver driver = new RemoteWebDriver(selenoidUrl, capabilities);
 
+        System.out.println("Opening website...");
+        driver.get("https://www.google.com");
+
+        System.out.println("Test completed successfully!");
+        driver.quit();
+    }
 }
