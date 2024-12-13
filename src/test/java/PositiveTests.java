@@ -24,10 +24,13 @@ public class PositiveTests {
         System.out.println("Starting test configuration...");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setVersion("latest");
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", false);
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "latest");
+        capabilities.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            put("enableVNC", true);
+            put("enableVideo", false);
+            put("sessionTimeout", "5m");
+        }});
 
         System.out.println("Connecting to Selenoid...");
         URL selenoidUrl = URI.create("http://localhost:4444/wd/hub").toURL();
