@@ -9,7 +9,7 @@ public class PositiveTests {
 
     @Test
     public void test1() {
-        Configuration.remote = "http://localhost:8081/wd/hub";
+        Configuration.remote = "http://localhost:4444/wd/hub";
 open("www.google.com");    }
 
 }
